@@ -5,8 +5,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 
+/**
+ * Class helping reading data from external api. Commonly used in api providers.
+ */
 public class ApiReader {
-    public String read(String urlString) {
+    /**
+     * @param urlString URL in string format of api endpoint
+     * @return JSON in String format
+     */
+    public String readURL(String urlString) {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(new URL(urlString).openStream()))) {
             StringBuilder sb = new StringBuilder();
             String line = reader.readLine();
