@@ -10,4 +10,10 @@ public interface ApiProvider {
      * @return List of stations fetched from source api
      */
     LinkedList<Station> fetchStations();
+
+    /**
+     * @param stationID Station ID
+     * @return StationIndex of station with stationID
+     */
+    StationIndex fetchStationIndex(Integer stationID);
 }
