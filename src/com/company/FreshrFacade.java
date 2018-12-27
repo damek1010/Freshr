@@ -1,33 +1,43 @@
 package com.company;
 
-import picocli.CommandLine.*;
+import java.util.LinkedList;
 
 /**
- * Interface between user and system in facade pattern.
+ * Main class of app.
  */
-@Command(name = "Freshr")
-public class FreshrFacade implements Runnable {
-    @Option(names = "-f", description = "Function selector. Possible values 1-8.")
-    Integer functionSelector;
+public class FreshrFacade {
+    /**
+     * List of all stations fetched from source
+     */
+    LinkedList<Station> stations;
 
-    @Option(names = "-n", description = "Station name")
-    String stationName;
+    /**
+     * Api Provider used to get data
+     */
+    ApiProvider provider;
 
-    @Option(names = {"-h", "--help"}, usageHelp = true, description = "display a help message")
-    private boolean helpRequested = false;
+    /**
+     * Initialize essential fields
+     */
+    public FreshrFacade() {
+        provider = new GiosApiProvider();
+        stations = provider.fetchStations();
+    }
 
-    Freshr freshr;
+    public StationIndex getStationIndex(String stationName) {
+        Station station = getStationByName(stationName);
+        StationIndex index = provider.fetchStationIndex(station.getID());
+        return index;
+    }
 
-    @Override
-    public void run() {
-        freshr = new Freshr();
-        switch (this.functionSelector) {
-            case 1:
-                StationIndex si = freshr.getStationIndex(stationName);
-                System.out.println(si);
+    private Station getStationByName(String stationName) {
+        Station result = null;
+        for (Station station : stations) {
+            if (station.getName().toUpperCase().equals(stationName.toUpperCase())) {
+                result = station;
                 break;
-            default:
-                break;
+            }
         }
+        return result;
     }
 }
