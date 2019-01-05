@@ -16,4 +16,6 @@ public interface ApiProvider {
      * @return StationIndex of station with stationID
      */
     StationIndex fetchStationIndex(Integer stationID);
+
+    LinkedList<Sensor> fetchSensor(Integer stationID);
 }

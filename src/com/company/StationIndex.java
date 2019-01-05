@@ -12,7 +12,7 @@ public class StationIndex {
     /**
      * Parameters stored in station index
      */
-    HashMap<String, StationIndexParameter> parameters;
+    HashMap<Parameter, StationIndexParameter> parameters;
 
     StationIndex() {
         parameters = new HashMap<>();
